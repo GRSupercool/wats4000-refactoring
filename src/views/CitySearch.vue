@@ -39,6 +39,7 @@
 
 <script>
 import axios from 'axios';
+import {API} from '@/common/api';
 
 export default {
   name: 'CitySearch',
@@ -52,6 +53,15 @@ export default {
   methods: {
     getCities: function () {
       // TODO: Improve base config for API
+      export default {
+  name: 'CitySearch',
+  data () {
+    return {
+      results: null,
+      errors: [],
+      query: ''
+    }
+  },
       axios.get('//api.openweathermap.org/data/2.5/find', {
         params: {
             q: this.query,
