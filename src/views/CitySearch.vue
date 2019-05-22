@@ -55,7 +55,8 @@ export default {
         params: {
             q: this.query,
             units: 'imperial',
-            APPID: 'YOUR_APPID_HERE'
+            APPID: 'b3ee7227bdc31ea6aa6496c5b6f3b0c7'
+
         }
       })
       .then(response => {
