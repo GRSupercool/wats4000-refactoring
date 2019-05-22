@@ -16,7 +16,7 @@
       <!-- TODO: Make weather summary be in a child component. -->
       <weather-summary v-bind:weatherData="weatherData.weather"></weather-summary>
 
-     <!-- <div
+      <!-- <div
         v-for="(weatherSummary,index) in weatherData.weather"
         :key="index"
         class="weatherSummary"
@@ -27,7 +27,7 @@
         >
         <br>
         <b>{{ weatherSummary.main }}</b>
-      </div> -->
+      </div>-->
       <!-- TODO: Make dl of weather data be in a child component. -->
       <dl>
         <dt>Current Temp</dt>
@@ -40,15 +40,17 @@
         <dd>{{ weatherData.main.temp_min }}&deg;F</dd>
       </dl>
     </div>
-    <div v-else-if="errors.length > 0">
+    <error-list v-bind:errorList="errors"></error-list>
+
+    <!-- <div v-else-if="errors.length > 0">
       <h2>There was an error fetching weather data.</h2>
       <ul class="errors">
         <li v-for="(error,index) in errors" :key="index">{{ error }}</li>
       </ul>
-    </div>
-    <div v-else>
+    </div>-->
+    <!-- <div v-else>
       <h2>Loading...</h2>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -72,7 +74,7 @@ export default {
         q: this.query  
     }
   })
-  created() {
+  created() 
    //axios.get("//api.openweathermap.org/data/2.5/weather", {
      // params: {
       //id: this.$route.params.cityId,
@@ -87,7 +89,7 @@ export default {
         id: this.$route.params.cityId,
         }
       })
-
+  
       .then(response => {
         this.weatherData = response.data;
       })
