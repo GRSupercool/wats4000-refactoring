@@ -14,7 +14,9 @@
     </p>
     <div v-if="weatherData && errors.length===0">
       <!-- TODO: Make weather summary be in a child component. -->
-      <div
+      <weather-summary v-bind:weatherData="weatherData.weather"></weather-summary>
+
+     <!-- <div
         v-for="(weatherSummary,index) in weatherData.weather"
         :key="index"
         class="weatherSummary"
@@ -25,7 +27,7 @@
         >
         <br>
         <b>{{ weatherSummary.main }}</b>
-      </div>
+      </div> -->
       <!-- TODO: Make dl of weather data be in a child component. -->
       <dl>
         <dt>Current Temp</dt>
@@ -70,13 +72,22 @@ export default {
         q: this.query  
     }
   })
-    //  .get("//api.openweathermap.org/data/2.5/weather", {
-     //   params: {
-      //    id: this.$route.params.cityId,
-     //     units: "imperial",
-     //     APPID: "b3ee7227bdc31ea6aa6496c5b6f3b0c7"
-     //   }
+  created() {
+   //axios.get("//api.openweathermap.org/data/2.5/weather", {
+     // params: {
+      //id: this.$route.params.cityId,
+      //  units: "imperial",
+      // APPID: "b3ee7227bdc31ea6aa6496c5b6f3b0c7"
+     //  }
      // })
+     
+      // TODO: Improve base config for API
+ API.get('weather', {
+        params: {
+        id: this.$route.params.cityId,
+        }
+      })
+
       .then(response => {
         this.weatherData = response.data;
       })
@@ -85,6 +96,7 @@ export default {
       });
   }
 };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

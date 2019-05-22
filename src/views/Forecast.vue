@@ -1,28 +1,43 @@
 <template>
   <div>
-    <h2>Five Day Hourly Forecast <span v-if="weatherData"> for {{ weatherData.city.name }}, {{weatherData.city.country }}</span></h2>
+    <h2>
+      Five Day Hourly Forecast
+      <span
+        v-if="weatherData"
+      >for {{ weatherData.city.name }}, {{weatherData.city.country }}</span>
+    </h2>
     <p>
-      <router-link to="/">Home</router-link> |
-      <router-link v-bind:to="{ name: 'CurrentWeather', params: { cityId: $route.params.cityId } }">Current Weather <span v-if="weatherData"> for {{ weatherData.city.name }}, {{weatherData.city.country }}</span></router-link>
+      <router-link to="/">Home</router-link>|
+      <router-link v-bind:to="{ name: 'CurrentWeather', params: { cityId: $route.params.cityId } }">
+        Current Weather
+        <span
+          v-if="weatherData"
+        >for {{ weatherData.city.name }}, {{weatherData.city.country }}</span>
+      </router-link>
     </p>
 
     <ul v-if="weatherData && errors.length===0" class="forecast">
       <li v-for="(forecast,index) in weatherData.list" :key="index">
         <h3>{{ forecast.dt|formatDate }}</h3>
         <!-- TODO: Make weather summary be in a child component. -->
-        <div v-for="(weatherSummary,index) in forecast.weather" :key="index" class="weatherSummary">
-            <img v-bind:src="'http://openweathermap.org/img/w/' + weatherSummary.icon + '.png'" v-bind:alt="weatherSummary.main">
-            <br>
-            <b>{{ weatherSummary.main }}</b>
-        </div>
+        <weather-summary v-bind:weatherData="forecast.weather"></weather-summary>
+
+        <!-- <div v-for="(weatherSummary,index) in forecast.weather" :key="index" class="weatherSummary">
+          <img
+            v-bind:src="'http://openweathermap.org/img/w/' + weatherSummary.icon + '.png'"
+            v-bind:alt="weatherSummary.main"
+          >
+          <br>
+          <b>{{ weatherSummary.main }}</b>
+        </div>-->
         <!-- TODO: Make dl of weather data be in a child component. -->
         <dl>
-            <dt>Humidity</dt>
-            <dd>{{ forecast.main.humidity }}%</dd>
-            <dt>High</dt>
-            <dd>{{ forecast.main.temp_max }}&deg;F</dd>
-            <dt>Low</dt>
-            <dd>{{ forecast.main.temp_min }}&deg;F</dd>
+          <dt>Humidity</dt>
+          <dd>{{ forecast.main.humidity }}%</dd>
+          <dt>High</dt>
+          <dd>{{ forecast.main.temp_max }}&deg;F</dd>
+          <dt>Low</dt>
+          <dd>{{ forecast.main.temp_min }}&deg;F</dd>
         </dl>
       </li>
     </ul>
@@ -39,57 +54,84 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
+import { API } from "@/common/api";
 
 export default {
-  name: 'Forecast',
-  data () {
+  name: "Forecast",
+  data() {
     return {
       weatherData: null,
       errors: [],
-      query: ''
-    }
+      query: ""
+    };
   },
-  created () {
+  created() {
     // TODO: Improve base config for API
-    axios.get('//api.openweathermap.org/data/2.5/forecast', {
+    //axios.get('//api.openweathermap.org/data/2.5/forecast', {
+    // params: {
+    // id: this.$route.params.cityId,
+    //units: 'imperial',
+    // APPID: 'b3ee7227bdc31ea6aa6496c5b6f3b0c7'
+    //}
+    //})
+    API.get("forecast", {
       params: {
-          id: this.$route.params.cityId,
-          units: 'imperial',
-          APPID: 'b3ee7227bdc31ea6aa6496c5b6f3b0c7'
+        id: this.$route.params.cityId
       }
     })
-    .then(response => {
-      this.weatherData = response.data
-    })
-    .catch(error => {
-      this.errors.push(error)
-    });
+      .then(response => {
+        this.weatherData = response.data;
+      })
+      .catch(error => {
+        this.errors.push(error);
+      });
   },
   filters: {
-    formatDate: function (timestamp){
+    formatDate: function(timestamp) {
       let date = new Date(timestamp * 1000);
-      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ];
+      const weekdays = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ];
       //let weekday = date.getDay();
       let daynum = date.getDate();
       let month = date.getMonth();
 
       let hour = date.getHours();
       if (hour === 12) {
-        hour = 'Noon';
+        hour = "Noon";
       } else if (hour === 0) {
-        hour = 'Midnight';
+        hour = "Midnight";
       } else if (hour > 12) {
-        hour = hour - 12 + 'PM';
+        hour = hour - 12 + "PM";
       } else if (hour < 12) {
-        hour = hour + 'AM';
+        hour = hour + "AM";
       }
       //let year = date.getFullYear();
-      return `${ months[month] } ${ daynum } @ ${ hour }`;
+      return `${months[month]} ${daynum} @ ${hour}`;
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -99,7 +141,8 @@ export default {
   border: solid red 1px;
   padding: 5px;
 }
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 
