@@ -39,8 +39,6 @@
 
 <script>
 import axios from 'axios';
-import {API} from '@/common/api';
-
 export default {
   name: 'CitySearch',
   data () {
@@ -53,20 +51,11 @@ export default {
   methods: {
     getCities: function () {
       // TODO: Improve base config for API
-      export default {
-  name: 'CitySearch',
-  data () {
-    return {
-      results: null,
-      errors: [],
-      query: ''
-    }
-  },
       axios.get('//api.openweathermap.org/data/2.5/find', {
         params: {
             q: this.query,
             units: 'imperial',
-            APPID: 'b3ee7227bdc31ea6aa6496c5b6f3b0c7'
+            APPID: 'YOUR_APPID_HERE'
         }
       })
       .then(response => {
@@ -90,7 +79,6 @@ export default {
 h1, h2 {
   font-weight: normal;
 }
-
 ul {
   list-style-type: none;
   padding: 0;
@@ -126,10 +114,9 @@ dd {
 dt::after {
   content: ":";
 }
-
 a {
   color: #42b983;
 }
 </style>
 
-
+a
