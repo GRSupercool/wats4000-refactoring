@@ -42,9 +42,10 @@
       </li>
     </ul>
     <error-list v-bind:errorList="errors"></error-list>
-    <div v-else>
+    
+   <!-- <div v-else>
       <h2>Loading...</h2>
-    </div>
+    </div>-->
 </template>
 
 <script>

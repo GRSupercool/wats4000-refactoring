@@ -6,8 +6,9 @@
         <li v-for="(error, index) in errorList" :key="index">{{ error }}</li>
       </ul>
     </div>
-    <div v-else>
+    <!--<div v-else>
         <h2>Loading...</h2>
+  </div> -->
   </div>
 </template>
 
@@ -20,7 +21,7 @@ export default {
     }
   },
   props: {
-    errorList: []
+    errorList: Array
   }
 }
 </script>
