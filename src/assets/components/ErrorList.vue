@@ -12,10 +12,9 @@
 <script>
 export default {
   name: "ErrorList",
-  data () {
+  data() {
     return {};
-
-    },
+  },
   props: {
     errorList: Array
   }
@@ -23,9 +22,9 @@ export default {
 </script>
 
 <style scoped>
-  .errors li {
-    color: red;
-    border: solid red 1px;
-    padding: 5px;
-  }
+.errors li {
+  color: red;
+  border: solid red 1px;
+  padding: 5px;
+}
 </style>
