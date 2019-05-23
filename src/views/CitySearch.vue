@@ -48,6 +48,9 @@ export default {
       API.get("find", {
         params: {
           q: this.query
+          units:'imperial'
+          APPID: 'b3ee7227bdc31ea6aa6496c5b6f3b0c7'
+
         }
       })
         .then(response => {
