@@ -21,31 +21,11 @@
         <h3>{{ forecast.dt|formatDate }}</h3>
         <!-- TODO: Make weather summary be in a child component. -->
         <weather-summary v-bind:weatherData="forecast.weather"></weather-summary>
-
-        <!-- <div v-for="(weatherSummary,index) in forecast.weather" :key="index" class="weatherSummary">
-          <img
-            v-bind:src="'http://openweathermap.org/img/w/' + weatherSummary.icon + '.png'"
-            v-bind:alt="weatherSummary.main"
-          >
-          <br>
-          <b>{{ weatherSummary.main }}</b>
-        </div>-->
-        <!-- TODO: Make dl of weather data be in a child component. -->
-        <!--   <dl>
-          <dt>Humidity</dt>
-          <dd>{{ forecast.main.humidity }}%</dd>
-          <dt>High</dt>
-          <dd>{{ forecast.main.temp_max }}&deg;F</dd>
-          <dt>Low</dt>
-          <dd>{{ forecast.main.temp_min }}&deg;F</dd>
-        </dl>-->
+        <weather-condtions v-bind:conditions="forecast.main"></weather-conditions>
       </li>
     </ul>
     <error-list v-bind:errorList="errors"></error-list>
-    
-   <!-- <div v-else>
-      <h2>Loading...</h2>
-    </div>-->
+    </div>
 </template>
 
 <script>
@@ -65,14 +45,6 @@ export default {
     };
   },
   created() {
-    // TODO: Improve base config for API
-    //axios.get('//api.openweathermap.org/data/2.5/forecast', {
-    // params: {
-    // id: this.$route.params.cityId,
-    //units: 'imperial',
-    // APPID: 'b3ee7227bdc31ea6aa6496c5b6f3b0c7'
-    //}
-    //})
     API.get("forecast", {
       params: {
         id: this.$route.params.cityId

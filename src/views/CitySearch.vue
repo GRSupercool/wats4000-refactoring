@@ -19,38 +19,13 @@
 
         <!-- TODO: Make weather summary be in a child component. -->
         <weather-summary v-bind:weatherData="city.weather"></weather-summary>
-        <!--  <div v-for="(weatherSummary,index) in city.weather" class="weatherSummary" :key="index">
-          <img
-            v-bind:src="'http://openweathermap.org/img/w/' + weatherSummary.icon + '.png'"
-            v-bind:alt="weatherSummary.main"
-          >
-          <br>
-          <b>{{ weatherSummary.main }}</b>
-        </div>
-        <!-- TODO: Make dl of weather data be in a child component.-->
         <weather-conditions v-bind:conditions="city.main"></weather-conditions>
-
-        <!-- <dl>
-          <dt>Current Temp</dt>
-          <dd>{{ city.main.temp }}&deg;F</dd>
-          <dt>Humidity</dt>
-          <dd>{{ city.main.humidity }}%</dd>
-          <dt>High</dt>
-          <dd>{{ city.main.temp_max }}&deg;F</dd>
-          <dt>Low</dt>
-          <dd>{{ city.main.temp_min }}&deg;F</dd>
-        </dl>-->
       </li>
     </ul>
-    <error-list v-bind:errorList="errors"></error-list>
-    <!--  <div v-else-if="errors.length > 0">
-      <h2>There was an error fetching weather data.</h2>
-      <ul class="errors">
-        <li v-for="(error,index) in errors" :key="index">{{ error }}</li>
-      </ul>
-    </div>-->
+    <error-list v bind:errorList="errors"></error-list>
   </div>
-</template>
+  </template>
+
 
 <script>
 import axios from "axios";
@@ -70,21 +45,11 @@ export default {
   },
   methods: {
     getCities: function() {
-      // TODO: Improve base config for API
       API.get("find", {
         params: {
           q: this.query
         }
       })
-
-        // axios.get('//api.openweathermap.org/data/2.5/find', {
-        //params: {
-        // q: this.query,
-        // units: 'imperial',
-        // APPID: 'b3ee7227bdc31ea6aa6496c5b6f3b0c7'
-        //
-        //      }
-        //  })
         .then(response => {
           this.results = response.data;
         })
