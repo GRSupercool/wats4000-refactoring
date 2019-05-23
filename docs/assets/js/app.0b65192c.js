@@ -253,7 +253,7 @@
               id: this.$route.params.cityId,
               units: "imperial",
               APPID: "b3ee7227bdc31ea6aa6496c5b6f3b0c7"
-              "
+              
             }
           }).then(t => {
             this.weatherData = t.data
